@@ -12,7 +12,14 @@ from wiki import article_titles, ask_search, ask_advanced_search
 #
 # Hint: to get list of existing article titles, use article_titles()
 def search(keyword):
-    pass
+    if len(keyword) == 0:
+        return []
+    titles = article_titles()
+    result = []
+    for title in titles:
+        if keyword.upper() in title.upper():
+            result.append(title)
+    return result
 
 # 2) 
 #
@@ -27,7 +34,11 @@ def search(keyword):
 # Returns: list of article titles from given titles with a length that does
 # not exceed max_length number of characters 
 def title_length(max_length, titles):
-    pass
+    result = []
+    for title in titles:
+        if len(title) <= max_length:
+            result.append(title)
+    return result
 
 # 3) 
 #
@@ -42,7 +53,14 @@ def title_length(max_length, titles):
 # given article titles, return an empty list regardless of the count.
 # If the max is larger than the # of titles, just return all titles.
 def article_count(count, titles):
-    pass
+    if not titles:
+        return []
+
+    if count > len(titles):
+        return titles
+    
+    return titles[:count]
+
 
 # 4) 
 #
@@ -55,7 +73,10 @@ def article_count(count, titles):
 # Returns: article title in given titles at given index. If
 # index is not valid, return an empty string
 def random_article(index, titles):
-    pass
+    if index >= len(titles) or index <= -len(titles):
+        return ""
+    else:
+        return titles[index]
 
 # 5) 
 #
@@ -68,7 +89,11 @@ def random_article(index, titles):
 # Returns: True if favorite article is in the given articles
 # (case insensitive) and False otherwise
 def favorite_article(favorite, titles):
-    pass
+    for title in titles:
+        if favorite.upper() == title.upper():
+            return True
+        else:
+            return False
 
 # 6) 
 #
@@ -82,7 +107,12 @@ def favorite_article(favorite, titles):
 # articles and adds those articles to list of article titles from basic 
 # search
 def multiple_keywords(keyword, titles):
-    pass
+    final_list = titles.copy()
+    new_article_titles = search(keyword)
+    final_list.extend(new_article_titles)
+    return final_list
+
+
 
 # Prints out articles based on searched keyword and advanced options
 def display_result():
