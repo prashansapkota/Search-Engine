@@ -763,7 +763,7 @@ def _create_id_to_metadata(info):
     resp = requests.get(_WIKI_API.format(article_id))
 
     if resp.status_code == 200:
-      item['keywords'] = _find_keywords(resp.json().get('query').get('pages')[0].get('extract'))
+      item['keywords'] =find_keywords(resp.json().get('query').get('pages')[0].get('extract')) # type: ignore
       id_to_metadata[article_id] = item
   
   return id_to_metadata
